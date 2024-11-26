@@ -5,13 +5,13 @@ import cors from 'cors';
 import path from 'path';
 import Task from './models/task.mjs';  
 import taskRoutes from './routes/taskRoutes.mjs';  
-// Load environment variables from .env
+
 
 dotenv.config();  
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Enable CORS
+
 app.use(cors());
 
 // Middleware to parse JSON request bodies
@@ -31,14 +31,14 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('MongoDB connected!');
     
-    // Seed database with tasks if it's empty
+
     seedDatabase();
   })
   .catch((error) => {
     console.error('Error connecting to MongoDB:', error);
   });
 
-// Function to seed the database with 10 tasks
+
 async function seedDatabase() {
   const taskCount = await Task.countDocuments();
   
@@ -67,12 +67,7 @@ async function seedDatabase() {
   }
 }
 
-// Serve the HTML page at the root (optional if you want a web interface)
-app.get('/', (req, res) => {
-  res.send('Welcome to the Task Manager API!');
-});
 
-// Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
